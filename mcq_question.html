@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ethical Hacking MCQ Test</title>
+<style>
+/* === GLOBAL === */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Share Tech Mono', monospace;
+  color:#0f0;
+  background:#000;
+}
+
+/* === MATRIX BACKGROUND === */
+canvas#matrix{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:-1;
+}
+
+/* === CONTAINER === */
+.container{
+  width:90%;max-width:950px;
+  margin:40px auto;
+  background:rgba(0,0,0,0.75);
+  border:2px solid #0f0;
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 0 30px #0f0;
+  backdrop-filter: blur(4px);
+}
+h1{
+  text-align:center;
+  font-size:2rem;
+  text-shadow:0 0 20px #0f0;
+  margin-top:0;
+  overflow:hidden;
+  white-space:nowrap;
+  border-right:.15em solid #0f0;
+  animation: typing 4s steps(40,end), blink .75s step-end infinite;
+}
+@keyframes typing { from{width:0} to{width:100%} }
+@keyframes blink { 50%{border-color:transparent} }
+
+.timer{
+  text-align:center;
+  font-size:1.3rem;
+  margin:15px 0 25px;
+  color:#ff0;
+  text-shadow:0 0 10px #ff0;
+}
+
+/* === QUESTIONS === */
+.question{margin:20px 0;padding:15px;border-left:3px solid #0f0;}
+.question h3{margin-top:0;color:#0ff;}
+label{
+  display:block;
+  padding:8px 12px;
+  margin:6px 0;
+  background:rgba(0,255,0,0.1);
+  border:1px solid #0f0;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background .3s, transform .2s;
+}
+label:hover{
+  background:rgba(0,255,0,0.2);
+  transform:scale(1.02);
+}
+input[type=radio]{margin-right:10px;}
+
+/* === BUTTON === */
+button{
+  background:linear-gradient(90deg,#0f0,#0ff);
+  border:none;
+  padding:12px 25px;
+  color:#000;
+  font-weight:bold;
+  font-size:1rem;
+  border-radius:12px;
+  cursor:pointer;
+  display:block;
+  margin:20px auto;
+  text-transform:uppercase;
+  transition:transform .2s, box-shadow .3s;
+}
+button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 20px #0f0;
+}
+
+/* === RESULT PAGES === */
+#contactForm,#sorryPage{text-align:center;display:none;}
+.qr-section img{
+    width:500px;
+    height:500px;
+    margin-top:15px;
+}
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="container">
+  <h1>Ethical Hacking MCQ Test</h1>
+  <div class="timer">Time Remaining: <span id="time">10:00</span></div>
+
+  <!-- Quiz -->
+  <form id="quizForm">
+    <div id="questions"></div>
+    <button type="submit">Submit Test</button>
+  </form>
+
+  <!-- Contact / Payment Info -->
+  <div id="contactForm">
+    <h2>🎉 Perfect Score!</h2>
+    <p><strong>Payment Instructions:</strong></p>
+    <p>Please pay ₹207 for the lottery ticket and <strong>enter your Name, Designation, and Phone Number in the GPay notes</strong> while making the payment.</p>
+    <div class="qr-section">
+      <h3>SCAN TO PAY &amp; WIN A PS5!</h3>
+      <img src="IMAGES/WhatsApp Image 2025-09-13 at 11.03.19_6d57a2ec.jpg" alt="GPay QR Code">
+      <button type="button" id="completeBtn">I’ve Paid</button>
+      <script>
+        document.getElementById('completeBtn').addEventListener('click', () => {
+          window.location.href = 'success.html'; // adjust path if needed
+        });
+      </script>
+    </div>
+  </div>
+
+  <!-- Sorry Page -->
+  <div id="sorryPage">
+    <h2>❌ Access Denied!</h2>
+    <p>You didn’t score 12/12 or your time expired. Retake is not allowed.</p>
+  </div>
+</div>
+
+<script>
+/* ===== Matrix Effect ===== */
+const c = document.getElementById('matrix');
+const ctx = c.getContext('2d');
+c.height = window.innerHeight;
+c.width = window.innerWidth;
+const chars = "01";
+const font_size = 14;
+const columns = c.width/font_size;
+const drops = Array(Math.floor(columns)).fill(1);
+function draw(){
+  ctx.fillStyle = "rgba(0,0,0,0.05)";
+  ctx.fillRect(0,0,c.width,c.height);
+  ctx.fillStyle = "#0F0";
+  ctx.font = font_size + "px monospace";
+  for(let i=0;i<drops.length;i++){
+    const text = chars.charAt(Math.floor(Math.random()*chars.length));
+    ctx.fillText(text,i*font_size,drops[i]*font_size);
+    if(drops[i]*font_size>c.height && Math.random()>0.975) drops[i]=0;
+    drops[i]++;
+  }
+}
+setInterval(draw,33);
+
+/* ===== Quiz Logic ===== */
+const questions = [
+  {q:'Which of the following best describes Ethical Hacking?',opts:['Hacking for fun','Legal security testing','Spreading malware','Identity theft'],ans:1},
+  {q:'What does VPN stand for?',opts:['Virtual Private Network','Verified Public Node','Virtual Personal Name','Very Private Net'],ans:0},
+  {q:'Default port for HTTPS?',opts:['80','443','22','8080'],ans:1},
+  {q:'Common tool for network scanning?',opts:['Photoshop','Nmap','Excel','Word'],ans:1},
+  {q:'SQL Injection targets which component?',opts:['Database','Router','Firewall','Keyboard'],ans:0},
+  {q:'Principle of least privilege means?',opts:['Users get admin','Grant minimal required access','Full access','No auth'],ans:1},
+  {q:'Which is a strong password?',opts:['password123','Qw!9z$Lp@7','john1990','123456'],ans:1},
+  {q:'Switch operates on which OSI layer?',opts:['Layer 2','Layer 7','Layer 3','Layer 5'],ans:0},
+  {q:'Phishing is used to?',opts:['Improve network speed','Steal sensitive info','Encrypt files','Build firewalls'],ans:1},
+  {q:'Which is NOT malware?',opts:['Trojan','Worm','Firewall','Ransomware'],ans:2},
+  {q:'Command to check active connections (Linux)?',opts:['netstat','mkdir','ls','echo'],ans:0},
+  {q:'Secure protocol for file transfer?',opts:['FTP','SFTP','Telnet','HTTP'],ans:1}
+];
+
+const qContainer=document.getElementById('questions');
+const quizForm=document.getElementById('quizForm');
+const contactForm=document.getElementById('contactForm');
+const sorryPage=document.getElementById('sorryPage');
+const timeEl=document.getElementById('time');
+
+questions.forEach((item,i)=>{
+  const div=document.createElement('div');
+  div.className='question';
+  div.innerHTML=`<h3>Q${i+1}. ${item.q}</h3>`+
+    item.opts.map((o,idx)=>
+      `<label><input type="radio" name="q${i}" value="${idx}" required> ${o}</label>`
+    ).join('');
+  qContainer.appendChild(div);
+});
+
+const QUIZ_KEY='ethicalQuiz';
+const DURATION=10*60*1000;
+let state=JSON.parse(localStorage.getItem(QUIZ_KEY))||{startedAt:null,finished:false,result:null};
+
+function saveState(){localStorage.setItem(QUIZ_KEY,JSON.stringify(state));}
+
+if(state.finished){
+  quizForm.style.display='none';
+  (state.result==='pass'?contactForm:sorryPage).style.display='block';
+}else{
+  if(!state.startedAt){
+    state.startedAt=Date.now();
+    saveState();
+  }
+  const endTime=state.startedAt+DURATION;
+  const timer=setInterval(()=>{
+    const rem=endTime-Date.now();
+    if(rem<=0){
+      clearInterval(timer);
+      quizForm.requestSubmit();
+    }else{
+      const m=Math.floor(rem/60000);
+      const s=Math.floor((rem%60000)/1000);
+      timeEl.textContent=`${m}:${s.toString().padStart(2,'0')}`;
+    }
+  },1000);
+
+  quizForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    clearInterval(timer);
+    let score=0;
+    questions.forEach((item,i)=>{
+      const sel=document.querySelector(`input[name="q${i}"]:checked`);
+      if(sel && parseInt(sel.value)===item.ans) score++;
+    });
+    quizForm.style.display='none';
+    state.finished=true;
+    state.result=(score===questions.length)?'pass':'fail';
+    saveState();
+    (state.result==='pass'?contactForm:sorryPage).style.display='block';
+  });
+}
+</script>
+</body>
+</html>

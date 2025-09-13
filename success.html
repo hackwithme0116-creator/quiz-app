@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction Successful</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #4caf50, #2e7d32);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5em;
+      animation: pop 0.8s ease-out;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2em;
+    }
+    .btn {
+      background: #fff;
+      color: #2e7d32;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #e0e0e0;
+    }
+    @keyframes pop {
+      0% {transform: scale(0.8); opacity: 0;}
+      100% {transform: scale(1); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <h1>✅ Payment Successful!</h1>
+  <p>Your transaction has been completed successfully.<br>
+     A confirmation call will come to you.</p>
+  <a href="index.html" class="btn">Return to Home</a>
+</body>
+</html>
